@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectofinal.vistas;
+import javax.swing.JOptionPane;
+import proyectofinal.clases.Lector;
 
-/**
- *
- * @author Chocobo
- */
 public class RegistrarLector extends javax.swing.JInternalFrame {
 
     /**
@@ -27,23 +20,145 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jtNombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jtDni = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jtDomicilio = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jtTelefono = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jRActivo = new javax.swing.JRadioButton();
+        jBregistrar = new javax.swing.JButton();
+
         setClosable(true);
+        setTitle("Registrar lector");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Registro");
+
+        jLabel2.setText("Nombre");
+
+        jLabel3.setText("DNI:");
+        jLabel3.setToolTipText("");
+
+        jLabel4.setText("Domicilio:");
+
+        jLabel5.setText("Telefono:");
+
+        jLabel6.setText("Activo:");
+
+        jRActivo.setText("¿Se encuentra activo?");
+
+        jBregistrar.setText("Registrar");
+        jBregistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBregistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRActivo)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jtNombre)
+                                .addComponent(jtDni)
+                                .addComponent(jtDomicilio)
+                                .addComponent(jtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(jBregistrar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(jLabel1)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jRActivo))
+                .addGap(32, 32, 32)
+                .addComponent(jBregistrar)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBregistrarActionPerformed
+        // Registrar Lector en la base de datos:
+        String nombre = jtNombre.getText();
+        Long dni=0L;
+        String domicilio = jtDomicilio.getText();                       //Inicializamos las variables.
+        Long telefono=0L;                                           
+        try{
+            if(!jtDni.getText().isEmpty() && !jtTelefono.getText().isEmpty() && !nombre.isEmpty() && !domicilio.isEmpty()){ //Comprobamos si algun campo clave del formulario esta vacio.
+                dni = Long.parseLong(jtDni.getText());              //si todos los campos estan llenos intenta convertir el campo del dni y del telefono a tipo Long
+                telefono = Long.parseLong(jtTelefono.getText());
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"ERROR\nNo puede haber campos vacios", "ERROR de campos", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
+                return;//Retorna al inicio (Cancela la ejecucion del metodo)
+            }
+            
+        }catch(NumberFormatException ex){//Error por si no puede convertir el String a Long
+            JOptionPane.showMessageDialog(this,"ERROR\nEl numero de telefono y el documento deben ser de tipo numerico.", "ERROR al parsear", JOptionPane.ERROR_MESSAGE);  
+            return;
+        }
+        //Si todo lo anterior funciono bien creamos un objeto de tipo Lector el cual luego sera subido a la base de datos.
+        Lector lector = new Lector(nombre,dni,domicilio,telefono,jRActivo.isSelected());
+    }//GEN-LAST:event_jBregistrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBregistrar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JRadioButton jRActivo;
+    private javax.swing.JTextField jtDni;
+    private javax.swing.JTextField jtDomicilio;
+    private javax.swing.JTextField jtNombre;
+    private javax.swing.JTextField jtTelefono;
     // End of variables declaration//GEN-END:variables
 }
