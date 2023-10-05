@@ -1,8 +1,8 @@
 package proyectofinal.clases;
 
 public enum EstadoEjemplar {
-    prestado, 
-    retraso, 
-    reparación, 
-    disponible_en_biblioteca
+    PRESTADO, 
+    RETRASO, 
+    REPARACION, 
+    DISPONIBLE_EN_BIBLIOTECA
 }

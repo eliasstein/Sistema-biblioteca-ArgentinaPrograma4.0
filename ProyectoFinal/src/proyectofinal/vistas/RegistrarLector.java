@@ -1,6 +1,7 @@
 package proyectofinal.vistas;
 import javax.swing.JOptionPane;
 import proyectofinal.clases.Lector;
+import proyectofinal.conexiones.*;
 
 public class RegistrarLector extends javax.swing.JInternalFrame {
 
@@ -144,6 +145,14 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
         }
         //Si todo lo anterior funciono bien creamos un objeto de tipo Lector el cual luego sera subido a la base de datos.
         Lector lector = new Lector(nombre,dni,domicilio,telefono,jRActivo.isSelected());
+        LectorData lectordata= new LectorData();
+        lectordata.RegistrarLector(lector);
+        //JOptionPane.showMessageDialog(this, "El lector "+lector.getNombre()+" ha sido añadido exitosamente");
+        jtDni.setText("");
+        jtDomicilio.setText("");
+        jtNombre.setText("");
+        jtTelefono.setText("");
+        jRActivo.setSelected(false);
     }//GEN-LAST:event_jBregistrarActionPerformed
 
 

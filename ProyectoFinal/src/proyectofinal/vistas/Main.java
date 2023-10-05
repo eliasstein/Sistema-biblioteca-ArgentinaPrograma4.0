@@ -10,6 +10,8 @@ import com.formdev.flatlaf.intellijthemes.FlatGradiantoMidnightBlueIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanIJTheme;
 import java.awt.Image;
+import java.awt.Shape;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -34,6 +36,7 @@ public class Main extends javax.swing.JFrame {
             UIManager.put( "ProgressBar.arc", 999 );
             UIManager.put( "TextComponent.arc", 999 );
             UIManager.put( "InternalFrameUI.arc",999);
+            
         } catch( Exception ex ) {
         //Error al cargar la libreria
             System.err.println("Se ha producido un error al cargar la Libreria flatlaf");
@@ -63,6 +66,7 @@ public class Main extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -70,11 +74,12 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proyecto final");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jDesktopPane1.setToolTipText("");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/vistas/background.png"))); // NOI18N
+        jLabel1.setToolTipText("");
         jLabel1.setPreferredSize(new java.awt.Dimension(256, 256));
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -83,13 +88,17 @@ public class Main extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(69, 69, 69))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(39, 39, 39))
         );
 
         jMenu1.setText("Registrar");
@@ -117,6 +126,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
+
+        jMenuItem7.setText("Registrar ejemplar");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
 
@@ -171,6 +188,7 @@ public class Main extends javax.swing.JFrame {
         int centerX = (this.getWidth() / 2) - (wind.getWidth() / 2);
         int centerY = (this.getHeight() / 2) - (wind.getHeight() / 2);
         wind.setBounds(centerX, centerY, wind.getWidth(), wind.getHeight());
+        
         wind.setVisible(true);
         jDesktopPane1.add(wind);
         jDesktopPane1.moveToFront(wind);
@@ -227,10 +245,23 @@ public class Main extends javax.swing.JFrame {
         int centerX = (this.getWidth() / 2) - (wind.getWidth() / 2);
         int centerY = (this.getHeight() / 2) - (wind.getHeight() / 2);
         wind.setBounds(centerX, centerY, wind.getWidth(), wind.getHeight());
+        
         wind.setVisible(true);
         jDesktopPane1.add(wind);
         jDesktopPane1.moveToFront(wind);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        //Instanciar JInternalFrame RegistrarEjemplar      
+        RegistrarEjemplar wind = new RegistrarEjemplar();
+        int centerX = (this.getWidth() / 2) - (wind.getWidth() / 2);
+        int centerY = (this.getHeight() / 2) - (wind.getHeight() / 2);
+        wind.setBounds(centerX, centerY, wind.getWidth(), wind.getHeight());
+        
+        wind.setVisible(true);
+        jDesktopPane1.add(wind);
+        jDesktopPane1.moveToFront(wind);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,5 +310,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }
