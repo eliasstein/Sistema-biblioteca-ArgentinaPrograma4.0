@@ -50,7 +50,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="67" max="32767" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -147,7 +147,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Editorial:"/>
+        <Property name="text" type="java.lang.String" value="Editorial-a&#xf1;o:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtEditorial">

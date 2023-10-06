@@ -67,7 +67,7 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Categoria:");
 
-        jLabel5.setText("Editorial:");
+        jLabel5.setText("Editorial-año:");
 
         jLabel6.setText("Activo:");
 
@@ -99,7 +99,7 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
                             .addComponent(jtCategoria)
                             .addComponent(jtEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(jtAutor))))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jBregistrar)
@@ -152,10 +152,10 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
         try{
 
             if(!titulo.isEmpty() && !categoria.isEmpty() && !editorial.isEmpty() && !autor.isEmpty() && !jtIsbn.getText().isEmpty()){ //Comprobamos si algun campo clave del formulario esta vacio.
-                if(jtIsbn.getText().length()>9 && jtIsbn.getText().length()<14)
+                if(jtIsbn.getText().length()>9 && jtIsbn.getText().length()<15)
                     Isbn = Long.parseLong(jtIsbn.getText());              //si todos los campos estan llenos intenta convertir el campo del Istb a entero
                 else{
-                    JOptionPane.showMessageDialog(this,"ERROR\nEl ISBN tiene que tener una longitud de entre 10 y 13.", "ERROR longitudinal", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
+                    JOptionPane.showMessageDialog(this,"ERROR\nEl ISBN tiene que tener una longitud de entre 10 y 14.", "ERROR longitudinal", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
                     return;//Retorna al inicio (Cancela la ejecucion del metodo)
                 }
             }
@@ -165,14 +165,14 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
             }
 
         }catch(NumberFormatException ex){//Error por si no puede convertir el String a Long
-            JOptionPane.showMessageDialog(this,"ERROR\nEl ISBT debe ser de tipo numerico.", "ERROR al parsear", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"ERROR\nEl ISBN debe ser de tipo numerico.", "ERROR al parsear", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //Si todo lo anterior funciono bien creamos un objeto de tipo Lector el cual luego sera subido a la base de datos.
         Libro libro = new Libro(Isbn,titulo,categoria,editorial,autor,jRActivo.isSelected());
         LibroData librodata = new LibroData();
         if (librodata.ExisteLibro(libro.getIsbn())){
-            JOptionPane.showMessageDialog(this,"ERROR\nEl ISBT ya esta siendo utilizado por otro libro, intente cambiandolo", "ERROR ISBT ya existente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"ERROR\nEl ISBN ya esta siendo utilizado por otro libro, intente cambiandolo", "ERROR ISBN ya existente", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
