@@ -177,7 +177,7 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
         }
 
         librodata.RegistrarLibro(libro);
-        //JOptionPane.showMessageDialog(this, "El libro "+libro.getTitulo()+" ha sido añadido exitosamente");
+        JOptionPane.showMessageDialog(this, "El libro ''"+libro.getTitulo()+"'' ha sido añadido exitosamente");
         
         jtAutor.setText("");
         jtCategoria.setText("");

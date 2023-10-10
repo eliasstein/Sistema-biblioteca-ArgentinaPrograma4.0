@@ -9,67 +9,86 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import proyectofinal.clases.EstadoEjemplar;
+import proyectofinal.clases.Libro;
 
 public class EjemplarData {
+
     private Connection con = null;
-    
-    public EjemplarData(){
+
+    public EjemplarData() {
         con = Conexion.getConexion();
     }
 
     public void RegistrarEjemplar(Ejemplar ejemplar) {
-    String sql = "INSERT INTO ejemplar (idLibro_isbn,estado,cantidad) " +
-                 "VALUES (?, ?, ?)";
-    try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-        ps.setLong(1, ejemplar.getLibro().getIsbn());
-        ps.setInt(2, ejemplar.getEstadoInteger());
-        ps.setLong(3, ejemplar.getCantidad());
-        
-        int filasAfectadas = ps.executeUpdate();
-        System.out.println(filasAfectadas);
-        if (filasAfectadas > 0) {
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Alumno añadido con éxito.");
+        String sql = "INSERT INTO ejemplar (idLibro_isbn,estado,cantidad) "
+                + "VALUES (?, ?, ?)";
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setLong(1, ejemplar.getLibro().getIsbn());
+            ps.setInt(2, ejemplar.getEstadoInteger());
+            ps.setLong(3, ejemplar.getCantidad());
+
+            int filasAfectadas = ps.executeUpdate();
+            System.out.println(filasAfectadas);
+            if (filasAfectadas > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        JOptionPane.showMessageDialog(null, "Ejemplar añadido con éxito.");
+                    }
                 }
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ejemplar: " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno: " + ex.getMessage());
     }
-}
-/*
-    public Alumno buscarAlumno(int id){
-        Alumno alumno = null;
-        String sql ="SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno = ? AND estado = 1";
-        PreparedStatement ps = null;
-        try{
-            ps = con.prepareStatement(sql);
-            ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                alumno = new Alumno();
-                alumno.setIdAlumno(id);
-                alumno.setDni(rs.getInt("dni"));
-                alumno.setApellido(rs.getString("apellido"));
-                alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado(true);
-            } 
-            else {
-                JOptionPane.showMessageDialog(null, "No existe el alumno");
-                ps.close();
+    public ArrayList<Ejemplar> buscarEjemplares() {
+
+        ArrayList<Ejemplar> ejemplares = new ArrayList<>();
+        String sql = "SELECT e.idEjemplar, e.idLibro_isbn, e.cantidad, e.estado, "
+                + "l.titulo, l.tipo, l.editorial, l.autor, l.estado AS libro_estado "
+                + "FROM ejemplar e "
+                + "INNER JOIN libro l ON e.idLibro_isbn = l.idLibro_isbn";
+
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int codigo = rs.getInt("idEjemplar"); // Cambiado de "codigo" a "idEjemplar"
+                long isbn = rs.getLong("idLibro_isbn");
+                EstadoEjemplar estado = EstadoEjemplar.values()[rs.getInt("estado")];
+                int cantidad = rs.getInt("cantidad");
+
+                String titulo = rs.getString("titulo");
+                String tipo = rs.getString("tipo");
+                String editorial = rs.getString("editorial");
+                String autor = rs.getString("autor");
+                boolean libroEstado = rs.getBoolean("libro_estado");
+
+                Libro libro = new Libro(isbn, titulo, tipo, editorial, autor, libroEstado);
+                Ejemplar ejemplar = new Ejemplar(codigo, libro, estado, cantidad);
+                ejemplares.add(ejemplar);
             }
+        } catch (SQLException ex) {
+            System.out.println("Entre aca");
+            // Manejar excepciones, como SQLException
+            ex.printStackTrace();
         }
-        catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno"+ex.getMessage());
-        }
-        return alumno;
+        System.out.println("Cantidad de ejemplares: " + ejemplares.size());
+        return ejemplares;
+
     }
-    
-    public Alumno buscarAlumnoPorDni(int dni) {
+    // Agregar esta función para cargar ejemplares en un JComboBox
+
+    public void cargarEjemplaresEnComboBox(JComboBox<Ejemplar> comboBox) {
+        ArrayList<Ejemplar> ejemplares = buscarEjemplares();
+        for (Ejemplar ejemplar : ejemplares) {
+            comboBox.addItem(ejemplar);
+        }
+    }
+
+}
+/*   public Alumno buscarAlumnoPorDni(int dni) {
         Alumno alumno = null;
         String sql = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento FROM alumno WHERE dni=? AND estado = 1";
         PreparedStatement ps = null;
@@ -180,5 +199,4 @@ public class EjemplarData {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Alumno");
         }
     }
-    */
-}
+ */

@@ -127,7 +127,7 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem7.setText("Registrar ejemplar");
+        jMenuItem7.setText("Ejemplar");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);

@@ -32,7 +32,7 @@ public class LectorData {
         if (filasAfectadas > 0) {
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Alumno añadido con éxito.");
+                    JOptionPane.showMessageDialog(null, "Lector añadido con éxito.");
                 }
             }
         }

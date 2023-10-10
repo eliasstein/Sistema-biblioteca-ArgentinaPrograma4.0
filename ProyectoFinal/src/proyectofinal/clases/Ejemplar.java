@@ -5,7 +5,10 @@ public class Ejemplar {
     private Libro libro;
     private EstadoEjemplar estado;
     private int cantidad;
-
+    
+    public Ejemplar() {
+       
+   }
     public Ejemplar(int codigo, Libro libro, EstadoEjemplar estado, int cantidad) {
         this.codigo = codigo;
         this.libro = libro;
@@ -54,7 +57,11 @@ public class Ejemplar {
         this.cantidad = cantidad;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Ejemplar " + codigo + " - " + libro.getTitulo();
+    }
+
     
     
     
