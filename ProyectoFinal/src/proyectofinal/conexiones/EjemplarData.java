@@ -70,22 +70,15 @@ public class EjemplarData {
                 ejemplares.add(ejemplar);
             }
         } catch (SQLException ex) {
-            System.out.println("Entre aca");
+            //System.out.println("Entre aca");
             // Manejar excepciones, como SQLException
             ex.printStackTrace();
         }
-        System.out.println("Cantidad de ejemplares: " + ejemplares.size());
+        //System.out.println("Cantidad de ejemplares: " + ejemplares.size());
         return ejemplares;
 
     }
-    // Agregar esta función para cargar ejemplares en un JComboBox
 
-    public void cargarEjemplaresEnComboBox(JComboBox<Ejemplar> comboBox) {
-        ArrayList<Ejemplar> ejemplares = buscarEjemplares();
-        for (Ejemplar ejemplar : ejemplares) {
-            comboBox.addItem(ejemplar);
-        }
-    }
 
 }
 /*   public Alumno buscarAlumnoPorDni(int dni) {

@@ -4,10 +4,20 @@
  * and open the template in the editor.
  */
 package proyectofinal.vistas;
+import com.formdev.flatlaf.util.ColorFunctions;
+import com.toedter.calendar.JCalendar;
+import java.awt.Color;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import proyectofinal.clases.Ejemplar;
 import proyectofinal.clases.Lector;
+import proyectofinal.clases.Prestamo;
 import proyectofinal.conexiones.EjemplarData;
+import proyectofinal.conexiones.LectorData;
+import proyectofinal.conexiones.PrestamoData;
 /**
  *
  * @author Chocobo
@@ -19,8 +29,8 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
      */
     public RegistrarPrestamo() {
         initComponents();
-        EjemplarData ejemplarData = new EjemplarData();
-        ejemplarData.cargarEjemplaresEnComboBox(jComboBox1);
+        CargarComboEjemplar();
+        CargarComboLectores();
     }
 
     /**
@@ -34,52 +44,44 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
 
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbEjemplar = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jcbLector = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jrbEstado = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jDateChooser4 = new com.toedter.calendar.JDateChooser();
-        jDateChooser5 = new com.toedter.calendar.JDateChooser();
+        jdcInicio = new com.toedter.calendar.JDateChooser();
+        jdcFin = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setTitle("Registrar prestamo");
 
         jLabel3.setText("Fecha fin:");
 
-        jComboBox1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                jComboBox1AncestorMoved(evt);
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Lector:");
 
         jLabel6.setText("Estado:");
 
-        jRadioButton1.setText("¿Se encuentra activo?");
+        jrbEstado.setText("¿Se encuentra activo?");
 
         jLabel4.setText("Ejemplar:");
 
         jButton1.setText("Registrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Registrar");
 
         jLabel2.setText("Fecha inicio:");
+
+        jdcFin.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,14 +97,14 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
                                 .addGap(46, 46, 46)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1)
-                                    .addComponent(jRadioButton1)))
+                                    .addComponent(jrbEstado)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(102, 102, 102))
-                                    .addComponent(jDateChooser4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jdcInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -113,9 +115,9 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jcbLector, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbEjemplar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,23 +128,23 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jDateChooser5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbLector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jRadioButton1))
+                    .addComponent(jrbEstado))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -151,43 +153,56 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-                                                  
-    // Llamar a EjemplarData para obtener los ejemplares
-    EjemplarData ejemplarData = new EjemplarData();
-    ArrayList<Ejemplar> ejemplares = ejemplarData.buscarEjemplares();
-    
-    // Limpiar el JComboBox antes de agregar los nuevos ejemplares
-    jComboBox1.removeAllItems();
-    
-    // Agregar los ejemplares al JComboBox jComboBox1
-    for (Ejemplar ejemplar : ejemplares) {
-        jComboBox1.addItem(ejemplar);
-    }
-
-// TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jComboBox1AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox1AncestorMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1AncestorMoved
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+       
+        if (jdcInicio.getDate()!=null && jdcFin.getDate()!=null){
+            LocalDate fechaInicio=jdcInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaFin=jdcFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Ejemplar ej = (Ejemplar)jcbEjemplar.getSelectedItem();
+            Lector lect = (Lector) jcbLector.getSelectedItem();
+            Prestamo prest = new Prestamo(fechaInicio, fechaFin, ej, lect, jrbEstado.isSelected());
+            PrestamoData prestamodata = new PrestamoData();
+            prestamodata.RegistrarPrestamo(prest);
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"ERROR\nLos campos de fechas no pueden ser vacios", "ERROR los campos no pueden ser vacios", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<Ejemplar> jComboBox1;
-    private javax.swing.JComboBox<Lector> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
-    private com.toedter.calendar.JDateChooser jDateChooser4;
-    private com.toedter.calendar.JDateChooser jDateChooser5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JComboBox<Ejemplar> jcbEjemplar;
+    private javax.swing.JComboBox<Lector> jcbLector;
+    private com.toedter.calendar.JDateChooser jdcFin;
+    private com.toedter.calendar.JDateChooser jdcInicio;
+    private javax.swing.JRadioButton jrbEstado;
     // End of variables declaration//GEN-END:variables
 
 
+    private void CargarComboEjemplar(){
+         EjemplarData ejemplarData = new EjemplarData();
+         //ejemplarData.cargarEjemplaresEnComboBox(jComboBox1);
+         for (Ejemplar ej:ejemplarData.buscarEjemplares()){
+             jcbEjemplar.addItem(ej);
+         }
+    }
+    
+    private void CargarComboLectores(){
+        LectorData lectorData = new LectorData();
+        for (Lector lec: lectorData.buscarLectores()){
+            jcbLector.addItem(lec);
+        }
+    }
+    
 }

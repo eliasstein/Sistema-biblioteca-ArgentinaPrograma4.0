@@ -61,7 +61,7 @@ public class LibroData {
 
         } 
         catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Alumno "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Libro "+ex.getMessage());
         }
         return libros;
     }

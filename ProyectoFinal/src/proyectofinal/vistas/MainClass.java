@@ -1,7 +1,7 @@
 package proyectofinal.vistas;
 
-import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanIJTheme;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.SwingUtilities;
@@ -16,7 +16,7 @@ public class MainClass {
             Main main = new Main();
             
             //FlatMaterialDeepOceanIJTheme.setup();
-            UIManager.setLookAndFeel(new FlatCarbonIJTheme());
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
             UIManager.put( "Button.arc", 10 );
             UIManager.put( "Component.arc", 10 );
             UIManager.put( "ProgressBar.arc", 10 );

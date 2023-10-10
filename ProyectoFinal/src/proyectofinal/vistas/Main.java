@@ -9,9 +9,13 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoMidnightBlueIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanIJTheme;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -23,24 +27,21 @@ import javax.swing.UIManager;
  */
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    private boolean modoOscuro=false;
     public Main() {
-        
+        /*
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-            FlatMaterialDeepOceanIJTheme.setup();
-            UIManager.put( "Button.arc", 999 );
-            UIManager.put( "Component.arc", 999 );
-            UIManager.put( "ProgressBar.arc", 999 );
-            UIManager.put( "TextComponent.arc", 999 );
-            UIManager.put( "InternalFrameUI.arc",999);
-            
+            //UIManager.setLookAndFeel(new FlatLightLaf());
+            //FlatMaterialDeepOceanIJTheme.setup();
+            //UIManager.put( "Button.arc", 999 );
+            //UIManager.put( "Component.arc", 999 );
+            //UIManager.put( "ProgressBar.arc", 999 );
+            //UIManager.put( "TextComponent.arc", 999 );
+            //UIManager.put( "InternalFrameUI.arc",999);
         } catch( Exception ex ) {
         //Error al cargar la libreria
             System.err.println("Se ha producido un error al cargar la Libreria flatlaf");
-        }
+        }*/
         
         initComponents();
         
@@ -61,6 +62,7 @@ public class Main extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -82,7 +84,16 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
         jLabel1.setPreferredSize(new java.awt.Dimension(256, 256));
 
+        jButton1.setText("Modo oscuro");
+        jButton1.setActionCommand("Modo oscuro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -90,13 +101,17 @@ public class Main extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(104, 104, 104)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addGap(69, 69, 69))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addComponent(jButton1)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(39, 39, 39))
         );
@@ -263,6 +278,26 @@ public class Main extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(wind);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            if(modoOscuro==true){
+                UIManager.setLookAndFeel(new FlatMacLightLaf());
+                SwingUtilities.updateComponentTreeUI(this);
+                modoOscuro=false;
+                jButton1.setText("Modo oscuro");
+            }
+            else{
+                 UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                 SwingUtilities.updateComponentTreeUI(this);
+                 modoOscuro=true;
+                 jButton1.setText("Modo claro");
+            }
+        } catch( Exception ex ) {
+        //Error al cargar la libreria
+            System.err.println("Se ha producido un error al cargar la Libreria flatlaf");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,6 +334,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

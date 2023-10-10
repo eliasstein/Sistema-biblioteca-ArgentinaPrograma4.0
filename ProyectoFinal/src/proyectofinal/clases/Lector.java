@@ -1,12 +1,23 @@
 package proyectofinal.clases;
 
 public class Lector {
+    private int nmroSocio;
     private String nombre;
     private Long dni;
     private String domicilio;
     private Long telefono;
     private boolean estado;
 
+    public Lector(int nmroSocio, String nombre, Long dni, String domicilio, Long telefono, boolean estado) {
+        this.nmroSocio = nmroSocio;
+        this.nombre = nombre;
+        this.dni = dni;
+        this.domicilio = domicilio;
+        this.telefono = telefono;
+        this.estado = estado;
+    }
+
+    
     public Lector(String nombre, Long dni, String domicilio, Long telefono, boolean activo) {
         this.nombre = nombre;
         this.dni = dni;
@@ -53,6 +64,19 @@ public class Lector {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public int getNmroSocio() {
+        return nmroSocio;
+    }
+
+    public void setNmroSocio(int nmroSocio) {
+        this.nmroSocio = nmroSocio;
+    }
+   
+    @Override
+    public String toString() {
+        return "DNI: "+dni+"-"+nombre;
     }
     
     
