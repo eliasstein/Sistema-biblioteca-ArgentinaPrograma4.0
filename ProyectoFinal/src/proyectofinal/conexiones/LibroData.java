@@ -30,7 +30,6 @@ public class LibroData {
         ps.setBoolean(6, libro.isEstado());
         
         int filasAfectadas = ps.executeUpdate();
-        System.out.println(filasAfectadas);
         if (filasAfectadas > 0) {
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {

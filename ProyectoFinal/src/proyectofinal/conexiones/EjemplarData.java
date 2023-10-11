@@ -79,6 +79,31 @@ public class EjemplarData {
 
     }
 
+    public void modificarEjemplar(Ejemplar ejemplar){
+        String sql = "UPDATE ejemplar SET idLibro_isbn = ?, estado = ?, cantidad= ? WHERE idEjemplar = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, ejemplar.getLibro().getIsbn());
+            ps.setInt(2, ejemplar.getEstadoInteger());
+            ps.setInt(3, ejemplar.getCantidad());
+            ps.setInt(4, ejemplar.getCodigo());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "El Ejemplar fue Modificado Exitosamente.");
+            } 
+            else {
+                JOptionPane.showMessageDialog(null, "El Ejemplar no existe");
+            }
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ejemplar "+ex.getMessage());
+        }
+    }
+    
+    
+    
+    
 
 }
 /*   public Alumno buscarAlumnoPorDni(int dni) {

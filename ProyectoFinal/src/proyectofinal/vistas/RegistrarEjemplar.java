@@ -207,7 +207,6 @@ public class RegistrarEjemplar extends javax.swing.JInternalFrame {
 
     private void CargarFilas() {
         LibroData librodata = new LibroData();
-        System.out.println(librodata.listarLibros());
         for (Libro libro : librodata.listarLibros()) {
             tabla.addRow(new Object[]{
                 libro.getIsbn(),

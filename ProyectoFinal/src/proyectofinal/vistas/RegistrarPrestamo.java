@@ -160,14 +160,25 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
             LocalDate fechaInicio=jdcInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fechaFin=jdcFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Ejemplar ej = (Ejemplar)jcbEjemplar.getSelectedItem();
-            Lector lect = (Lector) jcbLector.getSelectedItem();
-            Prestamo prest = new Prestamo(fechaInicio, fechaFin, ej, lect, jrbEstado.isSelected());
-            PrestamoData prestamodata = new PrestamoData();
-            prestamodata.RegistrarPrestamo(prest);
+            //Comprobamos si la cantidad de ejemplares es mayor que 0, si es asi podemos realizar el prestamo
+            if(ej.getCantidad()>0){
+                //Decrementar el ejemplar por el codigo.
+                ej.setCantidad(ej.getCantidad()-1);
+                //Obtenemos el lector del combobox
+                Lector lect = (Lector) jcbLector.getSelectedItem();
+                //Creamos un nuevo objeto de tipo prestamo y luego lo almacenamos en la base de datos.
+                Prestamo prest = new Prestamo(fechaInicio, fechaFin, ej, lect, jrbEstado.isSelected());
+                PrestamoData prestamodata = new PrestamoData();
+                prestamodata.RegistrarPrestamo(prest);
+                //decrementamos el ejemplar de la base de datos
+                EjemplarData ejemplardata = new EjemplarData();
+                ejemplardata.modificarEjemplar(ej);
+            }
+            else JOptionPane.showMessageDialog(this,"ERROR\nla cantidad de ejemplares tiene que ser mayor que 0", "ERROR cantidad de ejemplares invalida", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
+
         }
-        else{
-            JOptionPane.showMessageDialog(this,"ERROR\nLos campos de fechas no pueden ser vacios", "ERROR los campos no pueden ser vacios", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
-        }
+        else JOptionPane.showMessageDialog(this,"ERROR\nLos campos de fechas no pueden ser vacios", "ERROR los campos no pueden ser vacios", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
+        
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

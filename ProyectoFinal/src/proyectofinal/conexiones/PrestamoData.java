@@ -29,12 +29,6 @@ public class PrestamoData {
         String sql = "INSERT INTO prestamo (FechaInicio, FechaFin, idEjemplar, idLector, estado) "
                     +"VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            
-            System.out.println(Date.valueOf(prestamo.getFechainicio()));
-            System.out.println(Date.valueOf(prestamo.getFechafin()));
-            System.out.println(prestamo.getEjemplar().getCodigo());
-            System.out.println(prestamo.getLector().getNmroSocio());
-            System.out.println(prestamo.isEstado());
 
             ps.setDate(1, Date.valueOf(prestamo.getFechainicio()));
             ps.setDate(2, Date.valueOf(prestamo.getFechafin()));
@@ -43,7 +37,6 @@ public class PrestamoData {
             ps.setBoolean(5,prestamo.isEstado());
 
             int filasAfectadas = ps.executeUpdate();
-            System.out.println(filasAfectadas);
             if (filasAfectadas > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
