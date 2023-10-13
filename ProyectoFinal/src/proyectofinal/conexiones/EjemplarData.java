@@ -31,7 +31,6 @@ public class EjemplarData {
             ps.setLong(3, ejemplar.getCantidad());
 
             int filasAfectadas = ps.executeUpdate();
-            System.out.println(filasAfectadas);
             if (filasAfectadas > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
@@ -50,7 +49,8 @@ public class EjemplarData {
         String sql = "SELECT e.idEjemplar, e.idLibro_isbn, e.cantidad, e.estado, "
                 + "l.titulo, l.tipo, l.editorial, l.autor, l.estado AS libro_estado "
                 + "FROM ejemplar e "
-                + "INNER JOIN libro l ON e.idLibro_isbn = l.idLibro_isbn";
+                + "INNER JOIN libro l ON e.idLibro_isbn = l.idLibro_isbn "
+                + "ORDER BY idEjemplar";
 
         try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
@@ -89,18 +89,41 @@ public class EjemplarData {
             ps.setInt(3, ejemplar.getCantidad());
             ps.setInt(4, ejemplar.getCodigo());
             int exito = ps.executeUpdate();
-            if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "El Ejemplar fue Modificado Exitosamente.");
-            } 
-            else {
+            if (exito != 1) {
                 JOptionPane.showMessageDialog(null, "El Ejemplar no existe");
-            }
+            } 
         }
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ejemplar "+ex.getMessage());
         }
     }
     
+    public Ejemplar buscarEjemplarPorid(int idEjemplar) {
+            Ejemplar ejemplar=null;
+            String sql = "SELECT * FROM ejemplar WHERE idEjemplar=?";
+            PreparedStatement ps = null;
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setInt(1,idEjemplar);
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    ejemplar = new Ejemplar();
+                    ejemplar.setCodigo(rs.getInt("idEjemplar"));
+                    ejemplar.setLibro(new Libro());
+                    ejemplar.getLibro().setIsbn(rs.getLong("idLibro_isbn"));
+                    ejemplar.setEstado(EstadoEjemplar.values()[rs.getInt("estado")]);
+                } 
+                else {
+                    JOptionPane.showMessageDialog(null, "No existe el ejemplar");
+                }
+                ps.close();
+            } 
+            catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ejemplar "+ex.getMessage());
+            }
+            return ejemplar;
+        }
     
     
     

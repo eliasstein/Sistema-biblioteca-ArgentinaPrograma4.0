@@ -162,11 +162,18 @@ public class RegistrarEjemplar extends javax.swing.JInternalFrame {
 
         // Valido y obtener la cantidad ingresada
         String cantidadText = jtCantidad.getText();
-        int cantidad;
+        int cantidad=0;
         try {
-            cantidad = Integer.parseInt(cantidadText);
+            if(Integer.parseInt(cantidadText)>0){
+                cantidad = Integer.parseInt(cantidadText);
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"La cantidad introducida no puede ser menor o igual a 0.");
+                return;
+            }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese una cantidad válida.");
+            JOptionPane.showMessageDialog(this,"ERROR\nPor favor ingrese una cantidad valida.", "ERROR de conversion", JOptionPane.ERROR_MESSAGE);    //Si no se puede convertir a integer da error
+
             return;
         }
 

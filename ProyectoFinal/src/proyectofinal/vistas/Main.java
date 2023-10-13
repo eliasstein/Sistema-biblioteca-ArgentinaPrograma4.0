@@ -67,12 +67,13 @@ public class Main extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proyecto final");
@@ -85,7 +86,6 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(256, 256));
 
         jButton1.setText("Modo oscuro");
-        jButton1.setActionCommand("Modo oscuro");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -134,14 +134,6 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Prestamo");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem3);
-
         jMenuItem7.setText("Ejemplar");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,11 +142,19 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem7);
 
+        jMenuItem3.setText("Prestamo");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Consultar");
+        jMenu2.setText("Prestamos");
 
-        jMenuItem4.setText("Lector");
+        jMenuItem4.setText("Devolucion");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -177,6 +177,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem6);
+
+        jMenuItem8.setText("Devolver libro");
+        jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
 
@@ -231,17 +234,6 @@ public class Main extends javax.swing.JFrame {
         jDesktopPane1.add(wind);
         jDesktopPane1.moveToFront(wind);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        //Instanciar JInternalFrame ConsultarLector      
-        ConsultarLector wind = new ConsultarLector();
-        int centerX = (this.getWidth() / 2) - (wind.getWidth() / 2);
-        int centerY = (this.getHeight() / 2) - (wind.getHeight() / 2);
-        wind.setBounds(centerX, centerY, wind.getWidth(), wind.getHeight());
-        wind.setVisible(true);
-        jDesktopPane1.add(wind);
-        jDesktopPane1.moveToFront(wind);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         //Instanciar JInternalFrame ConsultarLibro      
@@ -298,6 +290,20 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        
+        //Instanciar JInternalFrame DevolverPrestamo      
+        DevolverPrestamo wind = new DevolverPrestamo();
+        int centerX = (this.getWidth() / 2) - (wind.getWidth() / 2);
+        int centerY = (this.getHeight() / 2) - (wind.getHeight() / 2);
+        wind.setBounds(centerX, centerY, wind.getWidth(), wind.getHeight());
+        
+        wind.setVisible(true);
+        jDesktopPane1.add(wind);
+        jDesktopPane1.moveToFront(wind);
+        
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,5 +353,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }

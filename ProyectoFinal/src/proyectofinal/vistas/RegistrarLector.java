@@ -88,7 +88,7 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(164, 164, 164)
                         .addComponent(jLabel1)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +117,7 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
                     .addComponent(jRActivo))
                 .addGap(32, 32, 32)
                 .addComponent(jBregistrar)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();

@@ -26,6 +26,11 @@ public class Lector {
         this.estado = activo;
     }
 
+    public Lector() {
+    }
+    
+    
+
     public String getNombre() {
         return nombre;
     }
