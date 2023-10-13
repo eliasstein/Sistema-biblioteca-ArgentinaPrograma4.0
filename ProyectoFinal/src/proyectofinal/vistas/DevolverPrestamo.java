@@ -181,21 +181,24 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
                 try{
                 int idPrestamo=(Integer)tabla2.getValueAt(jTable2.getSelectedRow(), 4);
                 int idEjemplar=(Integer)tabla2.getValueAt(jTable2.getSelectedRow(), 5);
-                EjemplarData ejemplarData = new EjemplarData();
-                //Modificamos la cantidad de ejemplares.
-                Ejemplar ejeliminado = ejemplarData.buscarEjemplarPorid(idEjemplar);
-                ejeliminado.setCantidad(ejeliminado.getCantidad()+1);
-                ejemplarData.modificarEjemplar(ejeliminado);
-                //Eliminamos el prestamo.
-                PrestamoData prestamoData = new PrestamoData();
-                prestamoData.EliminarPrestamo(idPrestamo);
-                //Actualizamos las tablas
-                CargarFilasTabla1();
-                int idLector=(Integer)tabla1.getValueAt(jTable1.getSelectedRow(), 0);  //id_Lector
-                CargarFilasTabla2(idLector, (Integer)(tabla1.getValueAt(jTable1.getSelectedRow(), 2)));
+                int idLector=(Integer)tabla1.getValueAt(jTable1.getSelectedRow(), 0);
+                if(idPrestamo != -1 && idEjemplar!=-1 && idLector!=-1){
+                    EjemplarData ejemplarData = new EjemplarData();
+                    //Modificamos la cantidad de ejemplares.
+                    Ejemplar ejeliminado = ejemplarData.buscarEjemplarPorid(idEjemplar);
+                    ejeliminado.setCantidad(ejeliminado.getCantidad()+1);
+                    ejemplarData.modificarEjemplar(ejeliminado);
+                    //Eliminamos el prestamo.
+                    PrestamoData prestamoData = new PrestamoData();
+                    prestamoData.EliminarPrestamo(idPrestamo);
+                    //Actualizamos las tablas
+                    CargarFilasTabla2(idLector, (Integer)(tabla1.getValueAt(jTable1.getSelectedRow(), 2)));
+                    CargarFilasTabla1();
+                }
+                else JOptionPane.showMessageDialog(this, "Seleccione al menos una fila en ambas tablas.");
                 }
                 catch(java.lang.ArrayIndexOutOfBoundsException ex){
-                    JOptionPane.showMessageDialog(this, "Asegurate de haber seleccionado un elemento en ambas tablas");
+                    JOptionPane.showMessageDialog(this, "Seleccione al menos una fila en ambas tablas.");
                 }
                 break;
         }

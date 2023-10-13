@@ -113,6 +113,7 @@ public class EjemplarData {
                     ejemplar.setLibro(new Libro());
                     ejemplar.getLibro().setIsbn(rs.getLong("idLibro_isbn"));
                     ejemplar.setEstado(EstadoEjemplar.values()[rs.getInt("estado")]);
+                    ejemplar.setCantidad(rs.getInt("cantidad"));
                 } 
                 else {
                     JOptionPane.showMessageDialog(null, "No existe el ejemplar");
