@@ -71,9 +71,6 @@ public class Main extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proyecto final");
@@ -162,25 +159,6 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem4);
 
-        jMenuItem5.setText("Libro");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
-
-        jMenuItem6.setText("Prestamo");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem6);
-
-        jMenuItem8.setText("Devolver libro");
-        jMenu2.add(jMenuItem8);
-
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -234,29 +212,6 @@ public class Main extends javax.swing.JFrame {
         jDesktopPane1.add(wind);
         jDesktopPane1.moveToFront(wind);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        //Instanciar JInternalFrame ConsultarLibro      
-        ConsultarLibro wind = new ConsultarLibro();
-        int centerX = (this.getWidth() / 2) - (wind.getWidth() / 2);
-        int centerY = (this.getHeight() / 2) - (wind.getHeight() / 2);
-        wind.setBounds(centerX, centerY, wind.getWidth(), wind.getHeight());
-        wind.setVisible(true);
-        jDesktopPane1.add(wind);
-        jDesktopPane1.moveToFront(wind);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        //Instanciar JInternalFrame ConsultarPrestamo      
-        ConsultarPrestamo wind = new ConsultarPrestamo();
-        int centerX = (this.getWidth() / 2) - (wind.getWidth() / 2);
-        int centerY = (this.getHeight() / 2) - (wind.getHeight() / 2);
-        wind.setBounds(centerX, centerY, wind.getWidth(), wind.getHeight());
-        
-        wind.setVisible(true);
-        jDesktopPane1.add(wind);
-        jDesktopPane1.moveToFront(wind);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         //Instanciar JInternalFrame RegistrarEjemplar      
@@ -350,9 +305,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }

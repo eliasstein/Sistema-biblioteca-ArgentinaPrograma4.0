@@ -9,12 +9,12 @@ package proyectofinal.vistas;
  *
  * @author Chocobo
  */
-public class ConsultarLibro extends javax.swing.JInternalFrame {
+public class PrestamoPorFecha extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ConsultorLibro
      */
-    public ConsultarLibro() {
+    public PrestamoPorFecha() {
         initComponents();
     }
 
@@ -28,17 +28,17 @@ public class ConsultarLibro extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         setClosable(true);
-        setTitle("Consultar libro");
+        setTitle("Prestamo por fecha");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 678, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGap(0, 421, Short.MAX_VALUE)
         );
 
         pack();
