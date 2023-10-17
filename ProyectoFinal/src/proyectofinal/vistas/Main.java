@@ -74,6 +74,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proyecto final");
+        setIconImages(null);
         setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jDesktopPane1.setToolTipText("");

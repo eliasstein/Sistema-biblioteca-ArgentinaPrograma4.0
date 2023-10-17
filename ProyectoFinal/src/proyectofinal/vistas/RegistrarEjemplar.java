@@ -54,6 +54,7 @@ public class RegistrarEjemplar extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Registrar ejemplar");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/vistas/education_books_library_icon_149685.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Registro");
