@@ -179,8 +179,14 @@
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jdcInicio">
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jdcInicioFocusGained"/>
+              </Events>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jdcFin">
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jdcFinFocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>

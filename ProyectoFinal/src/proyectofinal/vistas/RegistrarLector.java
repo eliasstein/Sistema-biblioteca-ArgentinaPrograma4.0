@@ -1,6 +1,5 @@
 package proyectofinal.vistas;
 import java.awt.Font;
-import javafx.scene.paint.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import proyectofinal.clases.Lector;

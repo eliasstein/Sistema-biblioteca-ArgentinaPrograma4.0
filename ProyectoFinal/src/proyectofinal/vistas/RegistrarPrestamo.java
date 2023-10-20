@@ -1,19 +1,8 @@
-    /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectofinal.vistas;
-import com.formdev.flatlaf.util.ColorFunctions;
-import com.toedter.calendar.JCalendar;
-import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import proyectofinal.clases.Ejemplar;
-import proyectofinal.clases.EstadoEjemplar;
 import proyectofinal.clases.Lector;
 import proyectofinal.clases.Prestamo;
 import proyectofinal.conexiones.EjemplarData;
@@ -32,6 +21,26 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         initComponents();
         CargarComboEjemplar();
         CargarComboLectores();
+        
+        
+
+        /*
+        // Obtener el componente de entrada de texto dentro del JDateChooser
+        JTextField textField = (JTextField) jdcInicio.getDateEditor().getUiComponent();
+        
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Evento cuando el componente obtiene el foco (seleccionado)
+                RestaurarTexto(jdcInicio);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Evento cuando el componente pierde el foco
+            }
+        });
+        */
+        
     }
 
     /**
@@ -66,6 +75,18 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         jLabel7.setText("Registro");
 
         jLabel1.setText("Fecha inicio:");
+
+        jdcInicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jdcInicioFocusGained(evt);
+            }
+        });
+
+        jdcFin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jdcFinFocusGained(evt);
+            }
+        });
 
         jLabel2.setText("Fecha fin:");
 
@@ -233,7 +254,13 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jcbEjemplarActionPerformed
 
+    private void jdcFinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcFinFocusGained
+    }//GEN-LAST:event_jdcFinFocusGained
 
+    private void jdcInicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcInicioFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jdcInicioFocusGained
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -267,5 +294,20 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
             jcbLector.addItem(lec);
         }
     }
+    /*
+    private void RestaurarTexto(JDateChooser date){
+        System.out.println(Main.modoOscuro);
+        System.out.println(date.getForeground());
+        if(Main.modoOscuro){
+            JTextField textField = (JTextField) date.getDateEditor().getUiComponent();
+            date.setForeground(java.awt.Color.WHITE);
+            date.setFont(new Font("Tahoma",Font.PLAIN,16));
+        }
+        else{
+            date.setForeground(java.awt.Color.BLACK);
+            date.setFont(new Font("Tahoma",Font.PLAIN,16));
+        }
+
+    }*/
     
 }

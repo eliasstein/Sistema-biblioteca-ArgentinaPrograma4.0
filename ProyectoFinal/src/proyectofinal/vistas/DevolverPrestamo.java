@@ -3,7 +3,6 @@ package proyectofinal.vistas;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -12,7 +11,6 @@ import proyectofinal.clases.Prestamo;
 import proyectofinal.conexiones.EjemplarData;
 import proyectofinal.clases.Ejemplar;
 import proyectofinal.clases.EstadoEjemplar;
-import proyectofinal.clases.Lector;
 
 
 public class DevolverPrestamo extends javax.swing.JInternalFrame {
@@ -318,10 +316,15 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //Boton de busqueda el cual cargara las filas de la segunda tabla.
-        int filaSeleccionada = jTable1.getSelectedRow();
-        int idLector=(Integer)tabla1.getValueAt(filaSeleccionada, 0);  //id_Lector
-        int idEjemplar=(Integer)(tabla1.getValueAt(filaSeleccionada, 2));  //id_Ejemplar
-        CargarFilasTabla2(idLector,idEjemplar);
+        if(jTable1.getSelectedRow()!=-1){
+            int filaSeleccionada = jTable1.getSelectedRow();
+            int idLector=(Integer)tabla1.getValueAt(filaSeleccionada, 0);  //id_Lector
+            int idEjemplar=(Integer)(tabla1.getValueAt(filaSeleccionada, 2));  //id_Ejemplar
+            CargarFilasTabla2(idLector,idEjemplar);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un elemento de la tabla prestamos.");
+        }
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
