@@ -11,6 +11,7 @@ import proyectofinal.conexiones.PrestamoData;
 import proyectofinal.clases.Prestamo;
 import proyectofinal.conexiones.EjemplarData;
 import proyectofinal.clases.Ejemplar;
+import proyectofinal.clases.EstadoEjemplar;
 import proyectofinal.clases.Lector;
 
 
@@ -371,7 +372,8 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
                 p.getLector().getNombre(),
                 p.getEjemplar().getCodigo(),
                 p.getEjemplar().getLibro().getTitulo(),
-                p.getEjemplar().getEstado(),
+                //p.getEjemplar().getEstado(),
+                EstadoEjemplar.PRESTADO,
                 p.getCantidad()});
         }
     }

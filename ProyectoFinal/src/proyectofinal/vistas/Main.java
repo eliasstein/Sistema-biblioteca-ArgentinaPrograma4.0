@@ -28,7 +28,7 @@ import javax.swing.UIManager;
  */
 public class Main extends javax.swing.JFrame {
 
-    private boolean modoOscuro=false;
+    public static boolean modoOscuro=false;
     public Main() {
         /*
         try {
@@ -47,8 +47,6 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         jButton1.setIcon(new ImageIcon("src\\proyectofinal\\vistas\\Moon.png"));
         this.setLocationRelativeTo(null);
-
-// create UI here...
         
     }
 

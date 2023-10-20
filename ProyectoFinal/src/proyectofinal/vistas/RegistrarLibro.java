@@ -272,9 +272,15 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
     
     private void RestaurarTexto(JTextField text){
         if(text.getForeground().equals(java.awt.Color.GRAY)){
-            text.setForeground(java.awt.Color.BLACK);
-            text.setFont(new Font("Tahoma",Font.PLAIN,16));
             text.setText("");
         }
+      if(Main.modoOscuro){
+            text.setForeground(java.awt.Color.WHITE);
+            text.setFont(new Font("Tahoma",Font.PLAIN,16));
+        }
+        else{
+            text.setForeground(java.awt.Color.BLACK);
+            text.setFont(new Font("Tahoma",Font.PLAIN,16));
+        }          
     }
 }

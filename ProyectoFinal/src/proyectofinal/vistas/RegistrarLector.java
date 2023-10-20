@@ -249,10 +249,16 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
     }
 
     private void RestaurarTexto(JTextField text){
-        if(text.getForeground().equals(java.awt.Color.GRAY)){
+        System.out.println(Main.modoOscuro);
+        if(text.getForeground().equals(java.awt.Color.GRAY))
+            text.setText("");
+        if(Main.modoOscuro){
+            text.setForeground(java.awt.Color.WHITE);
+            text.setFont(new Font("Tahoma",Font.PLAIN,16));
+        }
+        else{
             text.setForeground(java.awt.Color.BLACK);
             text.setFont(new Font("Tahoma",Font.PLAIN,16));
-            text.setText("");
         }
     }
     
