@@ -11,6 +11,7 @@ import proyectofinal.conexiones.PrestamoData;
 import proyectofinal.clases.Prestamo;
 import proyectofinal.conexiones.EjemplarData;
 import proyectofinal.clases.Ejemplar;
+import proyectofinal.clases.Lector;
 
 
 public class DevolverPrestamo extends javax.swing.JInternalFrame {
@@ -118,7 +119,7 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Filtros");
 
-        jLabel7.setText("El prestamo sucedio en esta fecha:");
+        jLabel7.setText("El prestamo caduca en esta fecha:");
 
         jCheckBox1.setText("Por fecha");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +137,7 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
 
         jLabel8.setText("El nombre del autor empieza por:");
 
-        jButton2.setText("Buscar");
+        jButton2.setText("Filtrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -219,10 +220,10 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
                             .addComponent(jCheckBox2)
                             .addComponent(jLabel8)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addGap(17, 17, 17)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -266,7 +267,10 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
                     ejemplarData.modificarEjemplar(ejeliminado);                        //y lo guardamos en la base de datos
                     //Eliminamos el prestamo.
                     PrestamoData prestamoData = new PrestamoData();                     
-                    prestamoData.EliminarPrestamo(idPrestamo);                          //Eliminamos un prestamo por su id
+                    //prestamoData.EliminarPrestamo(idPrestamo);                          //Eliminamos un prestamo por su id
+                    Prestamo pre=prestamoData.buscarPrestamoPorID(idPrestamo);          //Buscamos el prestamo por su id
+                    pre.setEstado(false);                                               //le cambiamos su estado a falso para indicar que fue eliminado
+                    prestamoData.modificarPrestamo(pre);                                //guardamos el prestamo modificado en la base de datos
                     //Actualizamos las tablas
                     CargarFilasTabla2(idLector, (Integer)(tabla1.getValueAt(jTable1.getSelectedRow(), 2))); //Actualizamos las filas de la tabla 2
                     CargarFilasTabla1();    //Actualizamos las filas de la tabla 1

@@ -185,9 +185,16 @@ public class RegistrarEjemplar extends javax.swing.JInternalFrame {
         // Crear un objeto Ejemplar 
         Ejemplar ejemplar = new Ejemplar(libroSeleccionado, EstadoEjemplar.valueOf(estadoSeleccionado), cantidad);
 
+        
         // Llamo a la función RegistrarEjemplar de EjemplarData para registrar el ejemplar
         EjemplarData ejemplarData = new EjemplarData();
-        ejemplarData.RegistrarEjemplar(ejemplar);
+        //Comparo si el ejemplar existe
+        if(ejemplarData.buscarEjemplar(ejemplar)==null){
+            ejemplarData.RegistrarEjemplar(ejemplar);
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"El libro con ese estado ya existe en la base de datos.");
+        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

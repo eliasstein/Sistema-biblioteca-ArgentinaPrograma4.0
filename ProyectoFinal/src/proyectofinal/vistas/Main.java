@@ -16,6 +16,7 @@ import java.awt.Image;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -44,7 +45,7 @@ public class Main extends javax.swing.JFrame {
         }*/
         
         initComponents();
-        
+        jButton1.setIcon(new ImageIcon("src\\proyectofinal\\vistas\\Moon.png"));
         this.setLocationRelativeTo(null);
 
 // create UI here...
@@ -83,7 +84,6 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
         jLabel1.setPreferredSize(new java.awt.Dimension(256, 256));
 
-        jButton1.setText("Modo oscuro");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -232,13 +232,16 @@ public class Main extends javax.swing.JFrame {
                 UIManager.setLookAndFeel(new FlatMacLightLaf());
                 SwingUtilities.updateComponentTreeUI(this);
                 modoOscuro=false;
-                jButton1.setText("Modo oscuro");
+                //System.out.println("Working Directory = " + System.getProperty("user.dir"));
+                jButton1.setIcon(new ImageIcon("src\\proyectofinal\\vistas\\Moon.png"));
+                jButton1.setText("");
             }
             else{
                  UIManager.setLookAndFeel(new FlatMacDarkLaf());
                  SwingUtilities.updateComponentTreeUI(this);
                  modoOscuro=true;
-                 jButton1.setText("Modo claro");
+                 jButton1.setIcon(new ImageIcon("src\\proyectofinal\\vistas\\Sun.png"));
+                 jButton1.setText("");
             }
         } catch( Exception ex ) {
         //Error al cargar la libreria

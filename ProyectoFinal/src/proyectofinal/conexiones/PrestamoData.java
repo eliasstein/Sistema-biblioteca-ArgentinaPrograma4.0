@@ -91,6 +91,7 @@ GROUP BY pre.idEjemplar,pre.idLector
                     +"INNER JOIN ejemplar ej ON pre.idEjemplar = ej.idEjemplar "
                     +"INNER JOIN libro lib ON ej.idLibro_isbn = lib.IdLibro_isbn "
                     +"INNER JOIN lector lec ON pre.idLector = lec.nroSocio "
+                    +"WHERE pre.estado=1 "
                     +"GROUP BY pre.idEjemplar,pre.idLector ";
 
         try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -148,7 +149,7 @@ GROUP BY pre.idEjemplar,pre.idLector
                     +"INNER JOIN ejemplar ej ON pre.idEjemplar = ej.idEjemplar "
                     +"INNER JOIN libro lib ON ej.idLibro_isbn = lib.IdLibro_isbn " 
                     +"INNER JOIN lector lec ON pre.idLector = lec.nroSocio " 
-                    +"WHERE pre.idLector=? and pre.idEjemplar=?";
+                    +"WHERE pre.idLector=? and pre.idEjemplar=? and pre.estado=1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -219,6 +220,91 @@ GROUP BY pre.idEjemplar,pre.idLector
             ex.printStackTrace();
         }
     }
+    
+    public void modificarPrestamo(Prestamo prestamo){
+        String sql = "UPDATE prestamo SET FechaInicio = ?, "
+                    +"FechaFin = ?, idEjemplar = ?, idLector = ?, estado = ? "
+                    +"WHERE idPrestamo = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setDate(1,Date.valueOf(prestamo.getFechainicio()));
+            ps.setDate(2, Date.valueOf(prestamo.getFechafin()));
+            ps.setInt(3, prestamo.getEjemplar().getCodigo());
+            ps.setInt(4, prestamo.getLector().getNmroSocio());
+            ps.setBoolean(5, prestamo.isEstado());
+            ps.setInt(6, prestamo.getIdPrestamo());
+
+            int exito = ps.executeUpdate();
+            if (exito != 1) {
+                JOptionPane.showMessageDialog(null, "El Ejemplar no existe");
+            } 
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ejemplar "+ex.getMessage());
+        }
+    }
+    
+    
+    public Prestamo buscarPrestamoPorID(int id){
+        Prestamo prestamo = null;
+        String sql = "SELECT pre.idPrestamo,pre.FechaInicio,pre.FechaFin,pre.idEjemplar,pre.idLector,pre.estado estado_prestamo,"
+                    +"ej.idEjemplar,ej.idLibro_isbn idLibro_isbn_ejemplar,ej.estado estado_ejemplar, ej.cantidad cantidad_ejemplar,"
+                    +"lib.IdLibro_isbn idLibro_isbn_libro, lib.titulo, lib.autor, lib.tipo, lib.editorial, lib.estado estado_libro,"
+                    +"lec.nroSocio, lec.nombre, lec.domicilio, lec.telefono, lec.estado estado_lector, lec.dni,COUNT(pre.idEjemplar) cantidad_prestamo "
+                    +"FROM prestamo pre "
+                    +"INNER JOIN ejemplar ej ON pre.idEjemplar = ej.idEjemplar "
+                    +"INNER JOIN libro lib ON ej.idLibro_isbn = lib.IdLibro_isbn "
+                    +"INNER JOIN lector lec ON pre.idLector = lec.nroSocio "
+                    +"WHERE pre.idPrestamo = ? "
+                    +"GROUP BY pre.idEjemplar,pre.idLector ";
+
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                //Libro
+                //Long isbn, String titulo, String tipo, String editorial, String autor, boolean estado
+                Long isbn = rs.getLong("idLibro_isbn_libro");
+                String titulo = rs.getString("titulo"); 
+                String tipo = rs.getString("tipo");
+                String editorial = rs.getString("editorial");
+                String autor = rs.getString("autor");
+                boolean estadoLib = rs.getBoolean("estado_libro");
+                Libro libro = new Libro(isbn,titulo,tipo,editorial,autor,estadoLib);
+                //Lector
+                //int nmroSocio, String nombre, Long dni, String domicilio, Long telefono, boolean estado
+                int nmroSocio = rs.getInt("nroSocio");
+                String nombre = rs.getString("nombre");
+                Long dni = rs.getLong("dni");
+                String domicilio = rs.getString("domicilio");
+                Long telefono = rs.getLong("telefono");
+                boolean estadoLec = rs.getBoolean("estado_lector");
+                Lector lector = new Lector(nmroSocio,nombre,dni,domicilio,telefono,estadoLec);
+                //Ejemplar
+                //int codigo, Libro libro, EstadoEjemplar estado, int cantidad
+                int codigo = rs.getInt("idEjemplar");
+                //libro declarado arriba
+                EstadoEjemplar estadoEjemplar = EstadoEjemplar.values()[rs.getInt("estado_ejemplar")];
+                int cantidadEj = rs.getInt("cantidad_ejemplar");
+                Ejemplar ejemplar = new Ejemplar(codigo,libro,estadoEjemplar,cantidadEj);
+                //Prestamo
+                //LocalDate fechainicio, LocalDate fechafin, Ejemplar ejemplar, Lector lector, boolean estado
+                int idPrestamo = rs.getInt("idPrestamo");
+                LocalDate fechaInicio = rs.getDate("FechaInicio").toLocalDate();
+                LocalDate fechaFin = rs.getDate("FechaFin").toLocalDate();
+                boolean estadoPrestamo = rs.getBoolean("estado_prestamo");
+                prestamo = new Prestamo(idPrestamo,fechaInicio,fechaFin,ejemplar,lector,estadoPrestamo);
+                prestamo.setCantidad(rs.getInt("cantidad_prestamo"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return prestamo;
+
+    }
+    
     
     
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import proyectofinal.clases.Ejemplar;
+import proyectofinal.clases.EstadoEjemplar;
 import proyectofinal.clases.Lector;
 import proyectofinal.clases.Prestamo;
 import proyectofinal.conexiones.EjemplarData;
@@ -50,8 +51,6 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         jdcFin = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jrbEstado = new javax.swing.JRadioButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jcbEjemplar = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -71,10 +70,6 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         jLabel2.setText("Fecha fin:");
 
         jLabel3.setText("Ejemplar:");
-
-        jLabel5.setText("Estado:");
-
-        jrbEstado.setText("¿Se encuentra activo?");
 
         jToggleButton1.setText("Registrar");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,36 +95,35 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8))
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbLector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdcFin, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbEjemplar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel1)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(149, 149, 149)
-                        .addComponent(jToggleButton1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8))
-                                .addGap(64, 64, 64)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbLector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jrbEstado)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(63, 63, 63)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jdcFin, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcbEjemplar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jdcInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 68, Short.MAX_VALUE))
+                        .addComponent(jToggleButton1)))
+                .addGap(0, 156, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,13 +160,9 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jcbLector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jrbEstado))
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -210,10 +200,10 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 
-        if (jdcInicio.getDate()!=null && jdcFin.getDate()!=null){
+        if (jdcInicio.getDate()!=null && jdcFin.getDate()!=null){//Si las fechas no son nulas
             LocalDate fechaInicio=jdcInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fechaFin=jdcFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Ejemplar ej = (Ejemplar)jcbEjemplar.getSelectedItem();
+            Ejemplar ej = (Ejemplar)jcbEjemplar.getSelectedItem();  //Obtenemos el ejemplar
             //Comprobamos si la cantidad de ejemplares es mayor que 0, si es asi podemos realizar el prestamo
             if(ej.getCantidad()>0){
                 //Decrementar el ejemplar por el codigo.
@@ -221,7 +211,8 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
                 //Obtenemos el lector del combobox
                 Lector lect = (Lector) jcbLector.getSelectedItem();
                 //Creamos un nuevo objeto de tipo prestamo y luego lo almacenamos en la base de datos.
-                Prestamo prest = new Prestamo(fechaInicio, fechaFin, ej, lect, jrbEstado.isSelected());
+                Prestamo prest = new Prestamo(fechaInicio, fechaFin, ej, lect, true);
+                //prest.getEjemplar().setEstado(EstadoEjemplar.PRESTADO);//Cambiamos el estado del prestamo a prestado. (No funciona ya que tambien modifica el ejemplar original.)
                 PrestamoData prestamodata = new PrestamoData();
                 prestamodata.RegistrarPrestamo(prest);
                 //decrementamos el ejemplar de la base de datos
@@ -247,7 +238,6 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -258,7 +248,6 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Lector> jcbLector;
     private com.toedter.calendar.JDateChooser jdcFin;
     private com.toedter.calendar.JDateChooser jdcInicio;
-    private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JTextField jtCantidad;
     // End of variables declaration//GEN-END:variables
 
@@ -267,7 +256,8 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
          EjemplarData ejemplarData = new EjemplarData();
          //ejemplarData.cargarEjemplaresEnComboBox(jComboBox1);
          for (Ejemplar ej:ejemplarData.buscarEjemplares()){
-             jcbEjemplar.addItem(ej);
+             if(ej.getEstado().ordinal()==3)
+                jcbEjemplar.addItem(ej);
          }
     }
     

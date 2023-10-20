@@ -5,7 +5,9 @@
  */
 package proyectofinal.vistas;
 
+import java.awt.Font;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import proyectofinal.clases.Libro;
 import proyectofinal.conexiones.LibroData;
 /**
@@ -19,6 +21,8 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
      */
     public RegistrarLibro() {
         initComponents();
+        TextoEjemplo();
+
     }
 
     /**
@@ -30,7 +34,6 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRActivo = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jBregistrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -41,15 +44,12 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
         jtCategoria = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jtEditorial = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jtAutor = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Registrar libro");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/vistas/education_books_library_icon_149685.png"))); // NOI18N
-
-        jRActivo.setText("¿Se encuentra activo?");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Registro");
@@ -63,16 +63,44 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
 
         jLabel2.setText("ISBN:");
 
+        jtIsbn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtIsbnFocusGained(evt);
+            }
+        });
+
         jLabel3.setText("Titulo:");
         jLabel3.setToolTipText("");
 
+        jtTitulo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtTituloFocusGained(evt);
+            }
+        });
+
         jLabel4.setText("Categoria:");
+
+        jtCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtCategoriaFocusGained(evt);
+            }
+        });
 
         jLabel5.setText("Editorial-año:");
 
-        jLabel6.setText("Activo:");
+        jtEditorial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtEditorialFocusGained(evt);
+            }
+        });
 
         jLabel7.setText("Autor");
+
+        jtAutor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtAutorFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,11 +118,9 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jRActivo)
                             .addComponent(jtIsbn)
                             .addComponent(jtTitulo)
                             .addComponent(jtCategoria)
@@ -131,11 +157,7 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRActivo)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jBregistrar)
                 .addContainerGap())
         );
@@ -170,7 +192,7 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
             return;
         }
         //Si todo lo anterior funciono bien creamos un objeto de tipo Lector el cual luego sera subido a la base de datos.
-        Libro libro = new Libro(Isbn,titulo,categoria,editorial,autor,jRActivo.isSelected());
+        Libro libro = new Libro(Isbn,titulo,categoria,editorial,autor,true);
         LibroData librodata = new LibroData();
         if (librodata.ExisteLibro(libro.getIsbn())){
             JOptionPane.showMessageDialog(this,"ERROR\nEl ISBN ya esta siendo utilizado por otro libro, intente cambiandolo", "ERROR ISBN ya existente", JOptionPane.ERROR_MESSAGE);
@@ -185,9 +207,28 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
         jtEditorial.setText("");
         jtIsbn.setText("");
         jtTitulo.setText("");
-        jRActivo.setSelected(false);
         
     }//GEN-LAST:event_jBregistrarActionPerformed
+
+    private void jtIsbnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtIsbnFocusGained
+        RestaurarTexto(jtIsbn);
+    }//GEN-LAST:event_jtIsbnFocusGained
+
+    private void jtTituloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtTituloFocusGained
+        RestaurarTexto(jtTitulo);
+    }//GEN-LAST:event_jtTituloFocusGained
+
+    private void jtCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtCategoriaFocusGained
+        RestaurarTexto(jtCategoria);
+    }//GEN-LAST:event_jtCategoriaFocusGained
+
+    private void jtEditorialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtEditorialFocusGained
+        RestaurarTexto(jtEditorial);
+    }//GEN-LAST:event_jtEditorialFocusGained
+
+    private void jtAutorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtAutorFocusGained
+        RestaurarTexto(jtAutor);
+    }//GEN-LAST:event_jtAutorFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -197,13 +238,43 @@ public class RegistrarLibro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRActivo;
     private javax.swing.JTextField jtAutor;
     private javax.swing.JTextField jtCategoria;
     private javax.swing.JTextField jtEditorial;
     private javax.swing.JTextField jtIsbn;
     private javax.swing.JTextField jtTitulo;
     // End of variables declaration//GEN-END:variables
+
+    private void TextoEjemplo(){
+    
+        jtIsbn.setForeground(java.awt.Color.GRAY);
+        jtIsbn.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtIsbn.setText("12345678910");
+        
+        jtTitulo.setForeground(java.awt.Color.GRAY);
+        jtTitulo.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtTitulo.setText("Titulo de ejemplo");
+        
+        jtCategoria.setForeground(java.awt.Color.GRAY);
+        jtCategoria.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtCategoria.setText("Ejemplo");
+        
+        jtEditorial.setForeground(java.awt.Color.GRAY);
+        jtEditorial.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtEditorial.setText("Editorial de ejemplo");
+        
+        jtAutor.setForeground(java.awt.Color.GRAY);
+        jtAutor.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtAutor.setText("Autor de ejemplo");
+        
+    }
+    
+    private void RestaurarTexto(JTextField text){
+        if(text.getForeground().equals(java.awt.Color.GRAY)){
+            text.setForeground(java.awt.Color.BLACK);
+            text.setFont(new Font("Tahoma",Font.PLAIN,16));
+            text.setText("");
+        }
+    }
 }

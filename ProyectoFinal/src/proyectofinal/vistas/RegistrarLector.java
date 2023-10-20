@@ -1,15 +1,17 @@
 package proyectofinal.vistas;
+import java.awt.Font;
+import javafx.scene.paint.Color;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import proyectofinal.clases.Lector;
 import proyectofinal.conexiones.*;
 
 public class RegistrarLector extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form RegistrarLector
-     */
+
     public RegistrarLector() {
         initComponents();
+        TextoEjemplo();
     }
 
     /**
@@ -30,8 +32,6 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
         jtDomicilio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jtTelefono = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jRActivo = new javax.swing.JRadioButton();
         jBregistrar = new javax.swing.JButton();
 
         setClosable(true);
@@ -43,16 +43,36 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nombre");
 
+        jtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtNombreFocusGained(evt);
+            }
+        });
+
         jLabel3.setText("DNI:");
         jLabel3.setToolTipText("");
 
+        jtDni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtDniFocusGained(evt);
+            }
+        });
+
         jLabel4.setText("Domicilio:");
+
+        jtDomicilio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtDomicilioFocusGained(evt);
+            }
+        });
 
         jLabel5.setText("Telefono:");
 
-        jLabel6.setText("Activo:");
-
-        jRActivo.setText("¿Se encuentra activo?");
+        jtTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtTelefonoFocusGained(evt);
+            }
+        });
 
         jBregistrar.setText("Registrar");
         jBregistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -73,16 +93,13 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel5))
                         .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRActivo)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtNombre)
-                                .addComponent(jtDni)
-                                .addComponent(jtDomicilio)
-                                .addComponent(jtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtNombre)
+                            .addComponent(jtDni)
+                            .addComponent(jtDomicilio)
+                            .addComponent(jtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addComponent(jBregistrar))
@@ -94,7 +111,7 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -113,27 +130,51 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(jtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jRActivo))
-                .addGap(32, 32, 32)
                 .addComponent(jBregistrar)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBregistrarActionPerformed
+        //Se utilizaba para detectar texto de ejemplo pero ya no es necesario
+        /*  
+        if(jtNombre.getForeground().equals(java.awt.Color.GRAY) ||
+           jtDni.getForeground().equals(java.awt.Color.GRAY)||
+           jtDomicilio.getForeground().equals(java.awt.Color.GRAY)||
+           jtTelefono.getForeground().equals(java.awt.Color.GRAY)){//Si la condicion se cumple significa que este texto de ejemplo
+            JOptionPane.showMessageDialog(this, "Por favor cargue todos los campos");
+            return;
+        }*/
+        
+        
         // Registrar Lector en la base de datos:
         String nombre = jtNombre.getText();
         Long dni=0L;
         String domicilio = jtDomicilio.getText();                       //Inicializamos las variables.
-        Long telefono=0L;                                           
+        Long telefono=0L;  
+        
+        for (char c : nombre.toCharArray()){
+            if(Character.isDigit(c)){
+                JOptionPane.showMessageDialog(this, "El nombre no puede contener numeros");
+                jtNombre.setText("");
+                return;
+            }
+        }
+        
+        
         try{
             if(!jtDni.getText().isEmpty() && !jtTelefono.getText().isEmpty() && !nombre.isEmpty() && !domicilio.isEmpty()){ //Comprobamos si algun campo clave del formulario esta vacio.
-                dni = Long.parseLong(jtDni.getText());              //si todos los campos estan llenos intenta convertir el campo del dni y del telefono a tipo Long
-                telefono = Long.parseLong(jtTelefono.getText());
+                if(jtDni.getText().length()==8){
+                    dni = Long.parseLong(jtDni.getText());              //si todos los campos estan llenos intenta convertir el campo del dni y del telefono a tipo Long
+                    telefono = Long.parseLong(jtTelefono.getText());
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"ERROR\nLa longitud del dni debe ser de 8", "ERROR longitudinal", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
+                    return;//Retorna al inicio (Cancela la ejecucion del metodo)
+                }
+                
             }
             else{
                 JOptionPane.showMessageDialog(this,"ERROR\nNo puede haber campos vacios", "ERROR de campos", JOptionPane.ERROR_MESSAGE);    //Si algun campo clave esta vacio muestra un error.
@@ -145,7 +186,7 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
             return;
         }
         //Si todo lo anterior funciono bien creamos un objeto de tipo Lector el cual luego sera subido a la base de datos.
-        Lector lector = new Lector(nombre,dni,domicilio,telefono,jRActivo.isSelected());
+        Lector lector = new Lector(nombre,dni,domicilio,telefono,true);
         LectorData lectordata= new LectorData();
         lectordata.RegistrarLector(lector);
         //JOptionPane.showMessageDialog(this, "El lector "+lector.getNombre()+" ha sido añadido exitosamente");
@@ -153,8 +194,23 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
         jtDomicilio.setText("");
         jtNombre.setText("");
         jtTelefono.setText("");
-        jRActivo.setSelected(false);
     }//GEN-LAST:event_jBregistrarActionPerformed
+
+    private void jtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtNombreFocusGained
+        RestaurarTexto(jtNombre);
+    }//GEN-LAST:event_jtNombreFocusGained
+
+    private void jtDniFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtDniFocusGained
+        RestaurarTexto(jtDni);
+    }//GEN-LAST:event_jtDniFocusGained
+
+    private void jtDomicilioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtDomicilioFocusGained
+        RestaurarTexto(jtDomicilio);
+    }//GEN-LAST:event_jtDomicilioFocusGained
+
+    private void jtTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtTelefonoFocusGained
+        RestaurarTexto(jtTelefono);
+    }//GEN-LAST:event_jtTelefonoFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -164,11 +220,40 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRActivo;
     private javax.swing.JTextField jtDni;
     private javax.swing.JTextField jtDomicilio;
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtTelefono;
     // End of variables declaration//GEN-END:variables
+
+
+    
+    private void TextoEjemplo(){
+    
+        jtNombre.setForeground(java.awt.Color.GRAY);
+        jtNombre.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtNombre.setText("Raul...");
+        
+        jtDni.setForeground(java.awt.Color.GRAY);
+        jtDni.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtDni.setText("12345678");
+        
+        jtDomicilio.setForeground(java.awt.Color.GRAY);
+        jtDomicilio.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtDomicilio.setText("Ejemplo 123");
+        
+        jtTelefono.setForeground(java.awt.Color.GRAY);
+        jtTelefono.setFont(new Font("Tahoma",Font.ITALIC,16));
+        jtTelefono.setText("1122334455");
+        
+    }
+
+    private void RestaurarTexto(JTextField text){
+        if(text.getForeground().equals(java.awt.Color.GRAY)){
+            text.setForeground(java.awt.Color.BLACK);
+            text.setFont(new Font("Tahoma",Font.PLAIN,16));
+            text.setText("");
+        }
+    }
+    
 }

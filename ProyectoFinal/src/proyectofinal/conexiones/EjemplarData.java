@@ -50,6 +50,7 @@ public class EjemplarData {
                 + "l.titulo, l.tipo, l.editorial, l.autor, l.estado AS libro_estado "
                 + "FROM ejemplar e "
                 + "INNER JOIN libro l ON e.idLibro_isbn = l.idLibro_isbn "
+                + "WHERE e.estado=3 "
                 + "ORDER BY idEjemplar";
 
         try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -78,6 +79,45 @@ public class EjemplarData {
         return ejemplares;
 
     }
+    
+    public Ejemplar buscarEjemplar(Ejemplar ej) {
+        Ejemplar ejemplar = null;
+        String sql = "SELECT * "
+                    +"FROM ejemplar e "
+                    +"INNER JOIN libro l ON e.idLibro_isbn=l.IdLibro_isbn "
+                    +"WHERE e.idLibro_isbn=? and e.estado=? ";
+        try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setLong(1, ej.getLibro().getIsbn());
+             ps.setInt(2,ej.getEstado().ordinal());
+             ResultSet rs = ps.executeQuery();
+
+
+            if (rs.next()) {
+                int codigo = rs.getInt("idEjemplar"); // Cambiado de "codigo" a "idEjemplar"
+                long isbn = rs.getLong("idLibro_isbn");
+                EstadoEjemplar estado = EstadoEjemplar.values()[rs.getInt("estado")];
+                int cantidad = rs.getInt("cantidad");
+
+                String titulo = rs.getString("titulo");
+                String tipo = rs.getString("tipo");
+                String editorial = rs.getString("editorial");
+                String autor = rs.getString("autor");
+                boolean libroEstado = rs.getBoolean("l.estado");
+
+                Libro libro = new Libro(isbn, titulo, tipo, editorial, autor, libroEstado);
+                ejemplar = new Ejemplar(codigo, libro, estado, cantidad);
+            }
+        } catch (SQLException ex) {
+            //System.out.println("Entre aca");
+            // Manejar excepciones, como SQLException
+            ex.printStackTrace();
+        }
+        //System.out.println("Cantidad de ejemplares: " + ejemplares.size());
+        return ejemplar;
+
+    }
+    
 
     public void modificarEjemplar(Ejemplar ejemplar){
         String sql = "UPDATE ejemplar SET idLibro_isbn = ?, estado = ?, cantidad= ? WHERE idEjemplar = ?";
