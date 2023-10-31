@@ -86,14 +86,6 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jTable1MouseEntered(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTable1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -233,20 +225,6 @@ public class DevolverPrestamo extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
-        
-                
-    }//GEN-LAST:event_jTable1MouseEntered
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        /*
-        int filaSeleccionada = jTable1.getSelectedRow();
-        int idLector=(Integer)tabla1.getValueAt(filaSeleccionada, 0);  //id_Lector
-        int idEjemplar=(Integer)(tabla1.getValueAt(filaSeleccionada, 2));  //id_Ejemplar
-        CargarFilasTabla2(idLector,idEjemplar);
-        */
-    }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 

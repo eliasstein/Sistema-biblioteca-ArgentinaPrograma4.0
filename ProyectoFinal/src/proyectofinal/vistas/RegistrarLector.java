@@ -154,8 +154,8 @@ public class RegistrarLector extends javax.swing.JInternalFrame {
         String domicilio = jtDomicilio.getText();                       //Inicializamos las variables.
         Long telefono=0L;  
         
-        for (char c : nombre.toCharArray()){
-            if(Character.isDigit(c)){
+        for (char c : nombre.toCharArray()){            //Recorremos caracter por caracter
+            if(Character.isDigit(c)){                   //si el caracter es un numero
                 JOptionPane.showMessageDialog(this, "El nombre no puede contener numeros");
                 jtNombre.setText("");
                 return;

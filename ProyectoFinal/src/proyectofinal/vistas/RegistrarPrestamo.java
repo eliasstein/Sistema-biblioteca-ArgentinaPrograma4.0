@@ -76,18 +76,6 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Fecha inicio:");
 
-        jdcInicio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jdcInicioFocusGained(evt);
-            }
-        });
-
-        jdcFin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jdcFinFocusGained(evt);
-            }
-        });
-
         jLabel2.setText("Fecha fin:");
 
         jLabel3.setText("Ejemplar:");
@@ -253,13 +241,6 @@ public class RegistrarPrestamo extends javax.swing.JInternalFrame {
         jtCantidad.setText(""+((Ejemplar)jcbEjemplar.getSelectedItem()).getCantidad());
         
     }//GEN-LAST:event_jcbEjemplarActionPerformed
-
-    private void jdcFinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcFinFocusGained
-    }//GEN-LAST:event_jdcFinFocusGained
-
-    private void jdcInicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcInicioFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jdcInicioFocusGained
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
